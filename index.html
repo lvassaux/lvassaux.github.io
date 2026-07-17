@@ -1,65 +1,649 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Louis Vassaux - PhD Student</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        body {
-            font-family: Georgia, serif;
-            max-width: 750px;
-            margin: 40px auto;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1, h2 {
-            color: #003366;
-        }
-        a {
-            color: #006699;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .contact, .links {
-            margin-top: 1em;
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Louis Vassaux — research in probability, statistics, random graphs, and graph alignment.">
+  <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="Louis Vassaux">
+  <meta property="og:description" content="Research in probability, statistics, random graphs, and graph alignment.">
+  <meta property="og:type" content="website">
+  <title>Louis Vassaux</title>
+
+  <style>
+    :root {
+      --bg: #f7f6f1;
+      --surface: rgba(255, 255, 255, 0.72);
+      --text: #17201d;
+      --muted: #65706b;
+      --line: rgba(23, 32, 29, 0.14);
+      --accent: #087f6a;
+      --accent-soft: #dcefe9;
+      --paper: #fffef9;
+      --shadow: 0 20px 70px rgba(42, 55, 49, 0.08);
+      --max-width: 1080px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #111714;
+      --surface: rgba(27, 37, 32, 0.74);
+      --text: #edf4f0;
+      --muted: #a9b7b0;
+      --line: rgba(237, 244, 240, 0.14);
+      --accent: #76d9c1;
+      --accent-soft: #183f36;
+      --paper: #17201c;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.24);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 84% 5%, rgba(8, 127, 106, 0.10), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      text-rendering: optimizeLegibility;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+      text-underline-offset: 0.2em;
+      text-decoration-thickness: 1px;
+    }
+
+    a:hover { color: var(--accent); }
+
+    :focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+
+    .wrap {
+      width: min(calc(100% - 40px), var(--max-width));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 83%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-right,
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .theme-toggle {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--text);
+      background: var(--surface);
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .theme-toggle:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    main { overflow: hidden; }
+
+    .hero {
+      min-height: 660px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.65fr);
+      align-items: center;
+      gap: clamp(50px, 8vw, 110px);
+      padding-block: 100px 90px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.12;
+      text-wrap: balance;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(3.5rem, 8.5vw, 7rem);
+      font-weight: 500;
+      letter-spacing: -0.055em;
+    }
+
+    .hero-intro {
+      max-width: 660px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.65;
+    }
+
+    .hero-intro strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 18px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      font-size: 0.88rem;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .portrait {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 48% 48% 10px 10px;
+      background:
+        linear-gradient(145deg, transparent 45%, rgba(255,255,255,.18)),
+        var(--accent-soft);
+      box-shadow: var(--shadow);
+    }
+
+    .portrait::before,
+    .portrait::after {
+      position: absolute;
+      content: "";
+      border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+      border-radius: 50%;
+    }
+
+    .portrait::before { width: 78%; aspect-ratio: 1; }
+    .portrait::after { width: 56%; aspect-ratio: 1; }
+
+    .monogram {
+      position: relative;
+      z-index: 1;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4rem, 9vw, 7rem);
+      letter-spacing: -0.1em;
+      transform: translateX(-0.04em);
+    }
+
+    /* To use a photograph, replace the .monogram div with:
+       <img src="portrait.jpg" alt="Portrait of Louis Vassaux">
+       and keep portrait.jpg next to this HTML file. */
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    section {
+      padding-block: 96px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(190px, 0.55fr) minmax(0, 1.45fr);
+      gap: clamp(40px, 8vw, 100px);
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+    }
+
+    .section-kicker {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .lead {
+      margin: -0.2em 0 44px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.45rem, 3vw, 2.1rem);
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    .research-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .research-card {
+      min-height: 210px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .research-card .number {
+      color: var(--accent);
+      font-size: 0.76rem;
+      font-weight: 850;
+      letter-spacing: 0.12em;
+    }
+
+    .research-card h3 {
+      margin: 42px 0 10px;
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .research-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .publication {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 20px;
+      padding-block: 30px;
+      border-top: 1px solid var(--line);
+    }
+
+    .publication:last-child { border-bottom: 1px solid var(--line); }
+
+    .publication-index {
+      padding-top: 4px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 850;
+    }
+
+    .publication h3 {
+      max-width: 720px;
+      margin: 0 0 10px;
+      font-size: clamp(1.25rem, 2.5vw, 1.65rem);
+      font-weight: 600;
+    }
+
+    .publication .authors,
+    .publication .venue {
+      margin: 4px 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .publication .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .publication .links a {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 850;
+      letter-spacing: 0.07em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .note {
+      padding: 28px;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .note strong { color: var(--text); }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 60px;
+      align-items: end;
+      padding: clamp(34px, 7vw, 72px);
+      border-radius: 16px;
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: var(--shadow);
+    }
+
+    .contact-panel h2 {
+      max-width: 670px;
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 11px;
+      justify-items: start;
+    }
+
+    .contact-details a {
+      color: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration-color: color-mix(in srgb, var(--bg) 40%, transparent);
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 34px 50px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-block: 74px 78px;
+      }
+      .hero-copy { order: 2; }
+      .portrait {
+        width: min(70vw, 320px);
+        order: 1;
+      }
+      .section-grid { grid-template-columns: 1fr; }
+      .research-list { grid-template-columns: 1fr; }
+      .contact-panel { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    @media print {
+      .site-header, .theme-toggle, .actions { display: none; }
+      body { background: white; color: black; }
+      section { padding-block: 40px; }
+      .hero { min-height: auto; padding-block: 40px; }
+      .portrait { box-shadow: none; }
+    }
+  </style>
+
+  <!-- MathJax is optional. Remove this script if the site will contain no mathematics. -->
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Louis Vassaux, home">Louis Vassaux</a>
+      <div class="nav-right">
+        <nav class="nav-links" aria-label="Main navigation">
+          <a href="#research">Research</a>
+          <a href="#publications">Publications</a>
+          <a href="#notes">Notes</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-    <h1>Louis Vassaux</h1>
-    <p>PhD Student in Mathematics<br>
-    <em>University of Paris / ENS</em><br>
-    <a href="mailto:you@example.com">you@example.com</a>
-    </p>
-
-    <div class="contact">
-        <p>
-            <strong>Research Interests:</strong><br>
-            Random matrices, statistical physics, convex optimization, harmonic analysis on Lie groups
+  <main id="top">
+    <div class="wrap hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Probability · Statistics · Random structures</p>
+        <h1>Louis<br>Vassaux</h1>
+        <p class="hero-intro">
+          I am a mathematician working on <strong>random graphs, statistical inference,
+          and probability</strong>. Much of my current research concerns graph alignment:
+          understanding when a hidden correspondence between noisy networks can be recovered.
         </p>
+        <div class="actions">
+          <!-- Replace # with the path to your CV, for example files/cv.pdf -->
+          <a class="button primary" href="#">Download CV</a>
+          <a class="button" href="#publications">View publications</a>
+        </div>
+      </div>
+
+      <div class="portrait" aria-label="Decorative monogram">
+        <div class="monogram" aria-hidden="true">LV</div>
+      </div>
     </div>
 
-    <h2>About Me</h2>
-    <p>
-        I am a third-year PhD student under the supervision of Prof. XYZ. I study the spectral and probabilistic structure of high-dimensional random systems, particularly using techniques from harmonic analysis and representation theory.
-    </p>
+    <section id="research">
+      <div class="wrap section-grid">
+        <div>
+          <h2 class="section-title">Research</h2>
+          <p class="section-kicker">Themes and questions</p>
+        </div>
+        <div>
+          <p class="lead">
+            I study the probabilistic structure of high-dimensional inference problems,
+            especially where sparsity and symmetry create sharp transitions between the
+            possible and the impossible.
+          </p>
 
-    <h2>Publications</h2>
-    <ul>
-        <li><a href="https://arxiv.org/abs/xxxx.xxxxx">Spectral Concentration in Random Bistochastic Models</a><br>
-            with A. Coauthor and B. Collaborator</li>
-        <li><a href="https://arxiv.org/abs/yyyy.yyyyy">Gaussian Multiplicative Chaos on Lie Groups</a></li>
-    </ul>
+          <div class="research-list">
+            <article class="research-card">
+              <span class="number">01</span>
+              <h3>Graph alignment</h3>
+              <p>Information-theoretic thresholds, partial recovery, and the geometry of the posterior in correlated random graphs.</p>
+            </article>
+            <article class="research-card">
+              <span class="number">02</span>
+              <h3>Random graphs</h3>
+              <p>Sparse and inhomogeneous models, balanced loads, cores, and structural parameters governing recoverability.</p>
+            </article>
+            <article class="research-card">
+              <span class="number">03</span>
+              <h3>High-dimensional statistics</h3>
+              <p>Bayesian estimation, computational barriers, phase transitions, and connections with statistical physics.</p>
+            </article>
+            <article class="research-card">
+              <span class="number">04</span>
+              <h3>Probability</h3>
+              <p>Limit theorems and probabilistic methods motivated by random matrices, number theory, and combinatorics.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>CV & Links</h2>
-    <ul class="links">
-        <li><a href="cv.pdf">Curriculum Vitae (PDF)</a></li>
-        <li><a href="https://scholar.google.com">Google Scholar</a></li>
-        <li><a href="https://github.com/yourusername">GitHub</a></li>
-    </ul>
+    <section id="publications">
+      <div class="wrap section-grid">
+        <div>
+          <h2 class="section-title">Selected work</h2>
+          <p class="section-kicker">Preprints and publications</p>
+        </div>
+        <div>
+          <article class="publication">
+            <span class="publication-index">01</span>
+            <div>
+              <h3>The feasibility of multi-graph alignment: a Bayesian approach</h3>
+              <p class="authors">With Laurent Massoulié</p>
+              <p class="venue">Preprint</p>
+              <div class="links">
+                <!-- Replace # with the relevant URLs. -->
+                <a href="#">Paper</a>
+                <a href="#">arXiv</a>
+                <a href="#">Slides</a>
+              </div>
+            </div>
+          </article>
 
+          <article class="publication">
+            <span class="publication-index">02</span>
+            <div>
+              <!-- Replace this sample entry with the exact title and author list. -->
+              <h3>Graph alignment in sparse inhomogeneous random graphs</h3>
+              <p class="authors">Working paper</p>
+              <p class="venue">A general framework based on balanced loads and graph self-overlap.</p>
+              <div class="links">
+                <a href="#">Abstract</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Duplicate an <article class="publication"> block to add more papers. -->
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <div class="wrap section-grid">
+        <div>
+          <h2 class="section-title">Notes</h2>
+          <p class="section-kicker">Exposition and working notes</p>
+        </div>
+        <div>
+          <p class="lead">A place for informal mathematical writing, lecture notes, and explanations that do not quite belong in a paper.</p>
+          <div class="note">
+            <strong>Example.</strong> Quarto is not required for this page, but it can later generate
+            note pages containing mathematics such as \(G \sim G(n,\lambda/n)\) while preserving
+            this site as the landing page.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact-panel">
+          <h2>Questions, ideas, or a possible collaboration?</h2>
+          <div class="contact-details">
+            <!-- Replace the placeholder address and profile links below. -->
+            <a href="mailto:your.email@example.com">your.email@example.com</a>
+            <a href="#">Google Scholar ↗</a>
+            <a href="#">GitHub ↗</a>
+            <a href="#">Institutional page ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© <span id="year"></span> Louis Vassaux</span>
+    <span>Typeset on the web with care.</span>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('.theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+    const preferredTheme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+    root.dataset.theme = savedTheme || preferredTheme;
+    toggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('theme', root.dataset.theme);
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
